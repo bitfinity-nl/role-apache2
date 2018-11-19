@@ -27,9 +27,9 @@
   ap_servername              : 'yourdomain.com'
   ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'
   ap_documentroot            : '/var/www/html'
-  ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem' 
-  ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'
-  ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem'
+  ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ ap_servername }}/cert.pem' 
+  ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ ap_servername }}/privkey.pem'
+  ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ ap_servername }}/chain.pem'
 
 
   # -- Apache2: security.conf.j2 --
