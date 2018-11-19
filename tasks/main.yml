@@ -1,0 +1,43 @@
+---
+  # Title: srv-apache2
+  #
+  # Author: Luc Rutten
+  # File: tasks/apache2-ssl.yml
+  #
+  # Description
+  #   Apache2 SSL support
+
+  - name: "Install packages"
+    apt:
+      name: "{{ packages }}"
+      state: "present"
+    with_items:
+      - apache2
+
+#  - name: "Apache2 enable SSL module"
+#    apache2_module:
+#      state: present
+#      name: ssl
+  
+#  - name: "Transfer template to /etc/apache2/sites-available/default-ssl.conf"
+#    template:
+#      src: default-ssl.conf.j2
+#      dest: /etc/apache2/sites-available/default-ssl.conf
+#      force: yes
+
+#  - name: "Enable default SSL site"
+#    command: a2ensite default-ssl.conf
+     
+#  - name: "Restart apache2"
+#    service:
+#      name: apache2
+#      state: restarted
+
+  - name: "Configure Apache2""
+    ufw:
+      rule: "{{ item.rule }}"
+      port: "{{ item.port }}"
+      proto: "{{ item.proto }}"
+    with_items:
+      - { rule:  'allow', port: '443', roto: 'tcp', from_ip: 'any', to_ip: 'any' }
+      - { rule: 'allow', port: '80', proto: 'tcp', from_ip: 'any', to_ip: 'any' }

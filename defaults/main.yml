@@ -1,0 +1,31 @@
+---
+  # Title: app-apache2
+  #
+  # Author: Luc Rutten
+  # File: defaults/main.yml  
+  #
+  # Description: 
+  #   Enable SSL for Apache
+
+  apache_serveradmin             : 'support@yourdomain.com'
+  apache_servername              : 'yourdomain.com'
+  apache_serveralias             : '{{ ansible_hostname }}.yourdomain.com'
+  apache_documentroot            : '/var/www/html'
+  apache_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem' 
+  apache_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'
+  apache_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem' 
+
+
+
+  # -- Apache2: security.conf.j2 --
+  #
+  # See for full details look at: templates/apache2/security.conf
+  #
+  # Variable(s):
+  #   ap_ServerTokens    : 'OS'   # Set to one of:  Full | OS | Minimal | Minor | Major | Prod
+  #   ap_ServerSignature : 'On'   # Set to one of:  On | Off | EMail
+  #   ap_TraceEnable     : 'Off'  # Set to one of:  On | Off | extended
+  #
+  ap_ServerTokens    : 'Prod'
+  ap_ServerSignature : 'off'
+  ap_TraceEnable     : 'off'

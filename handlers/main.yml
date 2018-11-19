@@ -1,0 +1,9 @@
+---
+  # handlers file for app-apache2
+  
+  - name: "restart_apache2"
+    service:
+      service:
+      name: apache2
+      state: restarted
+      enabled: yes
