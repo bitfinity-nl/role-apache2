@@ -20,14 +20,14 @@
       state: present
       name: ssl
   
-  - name: "Transfer template to /etc/apache2/sites-available/default-ssl.conf"
+  - name: "Transfer template to {{ ansible_hostname }}"
     template:
       src: "{{ item.src }}"
       dest: "{{ item.dest }}"
       force: yes
     with_items:
-        - src: { 'default-ssl.conf.j2', dest: '/etc/apache2/sites-available/default-ssl.conf' }
-        - src: { 'security.conf.j2', dest: '/etc/apache2/conf-available/security.conf' }
+      - { src: 'default-ssl.conf.j2', dest: '/etc/apache2/sites-available/default-ssl.conf' }
+      - { src: 'security.conf.j2', dest: '/etc/apache2/conf-available/security.conf' }
 
   - name: "Enable default SSL site"
     command: a2ensite default-ssl.conf
