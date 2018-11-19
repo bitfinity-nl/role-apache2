@@ -1,47 +1,19 @@
 ---
-  # Title: app-apache2
+  # Title: srv-apache2
   #
   # Author: Luc Rutten
-  # File: tasks/main.yml  
+  # File: tasks/main.yml
   #
-  # Description: 
-  #   Enable SSL for Apache
+  # Description:
+  #   Apache2 webserver 
 
-  - name: "Install packages"
-    apt:
-      name: "{{ packages }}"
-      state: "present"
-    vars:
-      packages:
-      - apache2
+ # - name: "Generate selfsigned certificated when state is enabled"
+ #   import_tasks: cert-check.yml
 
-  - name: "Apache2 enable SSL module"
-    apache2_module:
-      state: present
-      name: ssl
+  - name: "Generate selfsigned certificated when state is enabled"
+    import_tasks: ubt-1804-amd64-enabled.yml
+    when:
+      - ansible_distribution_version == "18.04"
+      - ansible_architecture == "x86_64"
+ #     - cert_check_result.exists == "true"
   
-  - name: "Transfer template to {{ ansible_hostname }}"
-    template:
-      src: "{{ item.src }}"
-      dest: "{{ item.dest }}"
-      force: yes
-    with_items:
-      - { src: 'default-ssl.conf.j2', dest: '/etc/apache2/sites-available/default-ssl.conf' }
-      - { src: 'security.conf.j2', dest: '/etc/apache2/conf-available/security.conf' }
-
-  - name: "Enable default SSL site"
-    command: a2ensite default-ssl.conf
-     
-  - name: "Restart apache2"
-    service:
-      name: apache2
-      state: restarted
-
-  - name: "Configure Apache2"
-    ufw:
-      rule: "{{ item.rule }}"
-      port: "{{ item.port }}"
-      proto: "{{ item.proto }}"
-    with_items:
-      - { rule:  'allow', port: '443', roto: 'tcp', from_ip: 'any', to_ip: 'any' }
-      - { rule: 'allow', port: '80', proto: 'tcp', from_ip: 'any', to_ip: 'any' }

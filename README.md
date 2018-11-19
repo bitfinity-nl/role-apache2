@@ -1,38 +1,50 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install a Apache2 server
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ubuntu 16.04lts, 18.04lts
+- Certificates
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Look at the defaults/main.yml for further information.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Look at role app-cert-selfsigned for creating selfsigned certificates.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+    - hosts: nl-bel-lt05
+      become: true
 
-    - hosts: servers
+      vars:
+        # -- custom settings: srv-apache2 --
+        ap_serveradmin             : '{{ cert_email }}'
+        ap_servername              : '{{ cert_orgname }}'
+        ap_serveralias             : '{{ ansible_hostname }}.{{ ap_servername }}'
+        ap_sslcertificatefile      : '/opt/ansible/system/ssl/certs/nl-bel-lt05/certificate-selfsigned.crt' 
+        ap_sslcertificatekeyfile   : '/opt/ansible/system/ssl/private/nl-bel-lt05/private-selfsigned.key'
+        ap_sslcertificatechainfile : '/opt/ansible/system/ssl/certs/nl-bel-lt05/certificate-selfsigned.crt'
+
       roles:
-         - { role: username.rolename, x: 42 }
+        - srv-apache2
 
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Luc Rutten
+
+lrutten@bitfinity.nl

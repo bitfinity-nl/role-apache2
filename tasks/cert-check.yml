@@ -1,0 +1,13 @@
+---
+  # Title: srv-apache2
+  #
+  # Author: Luc Rutten
+  # File: tasks/cert-check.yml
+  #
+  # Description:
+  #   Apache2 webserver
+
+  - name: "check if certificates {{ ap_sslcertificatefile }} exists."
+    stat:
+      path: "{{ ap_sslcertificatefile }}"
+    register: cert_check_result
