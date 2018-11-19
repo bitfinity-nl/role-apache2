@@ -6,15 +6,30 @@
   #
   # Description: 
   #   Enable SSL for Apache
+  #
+  #  Note:
+  #    - SSL certificates should already be available on the server
+  #      or use the app-cert-selfsigned to generate one.
+  #
 
-  apache_serveradmin             : 'support@yourdomain.com'
-  apache_servername              : 'yourdomain.com'
-  apache_serveralias             : '{{ ansible_hostname }}.yourdomain.com'
-  apache_documentroot            : '/var/www/html'
-  apache_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem' 
-  apache_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'
-  apache_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem' 
-
+  # -- Apache: sites-available/default-ssl.conf --
+  #
+  # Variable(s)
+  #   ap_serveradmin             : 'support@yourdomain.com'                                      # Set mail address of the server admin.
+  #   ap_servername              : 'yourdomain.com'                                              # Set domain name.
+  #   ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'                       # Set serveralias.
+  #   ap_documentroot            : '/var/www/html'                                               # Set path to documentroot.
+  #   ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem'      # Set path to certkey.pem.
+  #   ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'   # Set path to privkey.pem.
+  #   ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem'     # Set path to chain.pem.
+  #
+  ap_serveradmin             : 'support@yourdomain.com'
+  ap_servername              : 'yourdomain.com'
+  ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'
+  ap_documentroot            : '/var/www/html'
+  ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem' 
+  ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'
+  ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem'
 
 
   # -- Apache2: security.conf.j2 --

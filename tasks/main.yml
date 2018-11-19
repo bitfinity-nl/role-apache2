@@ -1,11 +1,11 @@
 ---
-  # Title: srv-apache2
+  # Title: app-apache2
   #
   # Author: Luc Rutten
-  # File: tasks/apache2-ssl.yml
+  # File: tasks/main.yml  
   #
-  # Description
-  #   Apache2 SSL support
+  # Description: 
+  #   Enable SSL for Apache
 
   - name: "Install packages"
     apt:
@@ -14,26 +14,29 @@
     with_items:
       - apache2
 
-#  - name: "Apache2 enable SSL module"
-#    apache2_module:
-#      state: present
-#      name: ssl
+  - name: "Apache2 enable SSL module"
+    apache2_module:
+      state: present
+      name: ssl
   
-#  - name: "Transfer template to /etc/apache2/sites-available/default-ssl.conf"
-#    template:
-#      src: default-ssl.conf.j2
-#      dest: /etc/apache2/sites-available/default-ssl.conf
-#      force: yes
+  - name: "Transfer template to /etc/apache2/sites-available/default-ssl.conf"
+    template:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      force: yes
+    with_items:
+        - src: { 'default-ssl.conf.j2', dest: '/etc/apache2/sites-available/default-ssl.conf' }
+        - src: { 'security.conf.j2', dest: '/etc/apache2/conf-available/security.conf' }
 
-#  - name: "Enable default SSL site"
-#    command: a2ensite default-ssl.conf
+  - name: "Enable default SSL site"
+    command: a2ensite default-ssl.conf
      
-#  - name: "Restart apache2"
-#    service:
-#      name: apache2
-#      state: restarted
+  - name: "Restart apache2"
+    service:
+      name: apache2
+      state: restarted
 
-  - name: "Configure Apache2""
+  - name: "Configure Apache2"
     ufw:
       rule: "{{ item.rule }}"
       port: "{{ item.port }}"
