@@ -10,10 +10,16 @@
  # - name: "Generate selfsigned certificated when state is enabled"
  #   import_tasks: cert-check.yml
 
-  - name: "Generate selfsigned certificated when state is enabled"
+  - name: "Install Apache2 when state is enabled"
     import_tasks: ubt-1804-amd64-enabled.yml
     when:
       - ansible_distribution_version == "18.04"
       - ansible_architecture == "x86_64"
  #     - cert_check_result.exists == "true"
   
+  - name: "Install evasive for DDOS protection."
+    import_tasks: evasive.yml
+    when:
+      - ansible_distribution_version == "18.04"
+      - ansible_architecture == "x86_64"
+      - ev_state == "enabled"

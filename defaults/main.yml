@@ -44,3 +44,24 @@
   ap_ServerTokens    : 'Prod'
   ap_ServerSignature : 'off'
   ap_TraceEnable     : 'off'
+
+  # -- Apache2: mods_evasive --
+  #
+  # Variable(s):
+  #   ev_state             : 'enabeld' or 'disabled'   # Whether mods_evasive is enabled or disabled.
+  #   ev_DOSHashTableSize  : '3097'
+  #   ev_DOSPageCount      : '2'
+  #   ev_DOSSiteCount      : '50'
+  #   ev_DOSPageInterval   : '1'
+  #   ev_DOSSiteInterval   : '1'
+  #   ev_DOSBlockingPeriod : '10'
+  #   ev_DOSEmailNotify    : 'you@yourdomain.com'
+  #
+  ev_state             : 'enabled'
+  ev_DOSHashTableSize  : '3097'
+  ev_DOSPageCount      : '20'
+  ev_DOSSiteCount      : '200'
+  ev_DOSPageInterval   : '1'
+  ev_DOSSiteInterval   : '5'
+  ev_DOSBlockingPeriod : '15'
+  ev_DOSEmailNotify    : 'you@yourdomain.com'

@@ -1,0 +1,12 @@
+<IfModule mod_evasive20.c>
+    DOSHashTableSize    {{ ev_DOSHashTableSize }}
+    DOSPageCount        {{ ev_DOSPageCount }}
+    DOSSiteCount        {{ ev_DOSSiteCount }}
+    DOSPageInterval     {{ ev_DOSPageInterval }}
+    DOSSiteInterval     {{ ev_DOSSiteInterval }}
+    DOSBlockingPeriod   {{ ev_DOSBlockingPeriod }}
+
+    DOSEmailNotify      {{ ev_DOSEmailNotify }}
+    #DOSSystemCommand    "su - someuser -c '/sbin/... %s ...'"
+    DOSLogDir           "/var/log/mod_evasive"
+</IfModule>
