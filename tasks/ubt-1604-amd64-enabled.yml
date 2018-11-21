@@ -1,0 +1,52 @@
+---
+  # Title: app-apache2
+  #
+  # Author: Luc Rutten
+  # File: tasks/ubt-1604-amd64-enabled.yml  
+  #
+  # Description: 
+  #   Enable SSL for Apache
+
+  - name: "Install packages"
+    apt:
+      name: "{{ packages }}"
+      state: "present"
+    vars:
+      packages:
+      - apache2
+        
+  - name: "Transfer template to {{ ansible_hostname }}"
+    template:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      force: yes
+    with_items:
+      - { src: 'default-ssl.conf.j2', dest: '/etc/apache2/sites-available/default-ssl.conf' }
+      - { src: 'security.conf.j2', dest: '/etc/apache2/conf-available/security.conf' }
+
+  - name: "Apache2 enable SSL module"
+    apache2_module:
+      state: present
+      name: "{{ item }}"
+    with_items:
+     - ssl
+     - xml2enc
+
+  - name: "Enable default SSL site"
+    command: a2ensite default-ssl.conf
+     
+  - name: "Restart apache2"
+    service:
+      name: apache2
+      state: restarted
+
+  - name: "Configure UFW for Apache2"
+    ufw:
+      rule: "{{ item.rule }}"
+      port: "{{ item.port }}"
+      proto: "{{ item.proto }}"
+      from_ip: "{{ item.from_ip }}"
+      to_ip: "{{ item.to_ip }}"
+    with_items:
+      - { rule:  'allow', port: '443', proto: 'tcp', from_ip: 'any', to_ip: 'any' }
+      - { rule: 'allow', port: '80', proto: 'tcp', from_ip: 'any', to_ip: 'any' }

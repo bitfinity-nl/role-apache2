@@ -10,7 +10,13 @@
  # - name: "Generate selfsigned certificated when state is enabled"
  #   import_tasks: cert-check.yml
 
-  - name: "Install Apache2 when state is enabled"
+  - name: "Install Apache2 on Ubuntu 16.04lts amd64 when state is enabled"
+    import_tasks: ubt-1604-amd64-enabled.yml
+    when:
+      - ansible_distribution_version == "16.04"
+      - ansible_architecture == "x86_64"
+
+  - name: "Install Apache2 on Ubuntu 18.04lts amd64 when state is enabled"
     import_tasks: ubt-1804-amd64-enabled.yml
     when:
       - ansible_distribution_version == "18.04"
