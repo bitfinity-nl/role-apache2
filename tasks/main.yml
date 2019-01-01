@@ -29,3 +29,10 @@
       - ansible_distribution_version == "18.04"
       - ansible_architecture == "x86_64"
       - ev_state == "enabled"
+
+  - name: "Install PHP for Apach2."
+    import_tasks: ubt-php-enabled.yml
+    when:
+      - ansible_distribution_version == "18.04"
+      - ansible_architecture == "x86_64"
+      - php_state == "enabled"

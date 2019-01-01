@@ -65,3 +65,63 @@
   ev_DOSSiteInterval   : '5'
   ev_DOSBlockingPeriod : '15'
   ev_DOSEmailNotify    : 'you@yourdomain.com'
+
+
+  # -- PHP: php.ini --
+  # 
+  # Variable(s):
+  #   php_state            : 'disabled' or 'enabled'      # Wheter php will be enabled or disabled
+  #   php_ext_bz           : ';extension=bz2'
+  #   php_ext_curl         : ';extension=curl'
+  #   php_ext_fileinfo     : ';extension=fileinfo'
+  #   php_ext_gd2          : ';extension=gd2'
+  #   php_ext_gettext      : ';extension=gettext'
+  #   php_ext_gmp          : ';extension=gmp'
+  #   php_ext_intl         : ';extension=intl'
+  #   php_ext_imap         : ';extension=imap'
+  #   php_ext_interbase    : ';extension=interbase'
+  #   php_ext_ldap         : ';extension=ldap'
+  #   php_ext_ldap         : ';extension=mbstring'
+  #   php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
+  #   php_ext_mysqli       : ';extension=mysqli'
+  #   php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
+  #   php_ext_odbc         : ';extension=odbc'
+  #   php_ext_openssl      : ';extension=openssl'
+  #   php_ext_pdo_firebird : ';extension=pdo_firebird'
+  #   php_ext_pdo_mysql    : ';extension=pdo_mysql'
+  #   php_ext_pdo_oci      : ';extension=pdo_oci'
+  #   php_ext_pdo_odbc     : ';extension=pdo_odbc'
+  #   php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
+  #   php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
+  #   php_ext_pgsql        : ';extension=pgsql'
+  #   php_ext_shmop        : ';extension=shmop'
+  #
+  # Comment:
+  #   - PHP is disabled by default.
+  #   - Remove ; to enable the extension
+  #
+  php_state            : 'disabled'
+  php_ext_bz           : ';extension=bz2'
+  php_ext_curl         : ';extension=curl'
+  php_ext_fileinfo     : ';extension=fileinfo'
+  php_ext_gd2          : ';extension=gd2'
+  php_ext_gettext      : ';extension=gettext'
+  php_ext_gmp          : ';extension=gmp'
+  php_ext_intl         : ';extension=intl'
+  php_ext_imap         : ';extension=imap'
+  php_ext_interbase    : ';extension=interbase'
+  php_ext_ldap         : ';extension=ldap'
+  php_ext_ldap         : ';extension=mbstring'
+  php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
+  php_ext_mysqli       : ';extension=mysqli'
+  php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
+  php_ext_odbc         : ';extension=odbc'
+  php_ext_openssl      : ';extension=openssl'
+  php_ext_pdo_firebird : ';extension=pdo_firebird'
+  php_ext_pdo_mysql    : ';extension=pdo_mysql'
+  php_ext_pdo_oci      : ';extension=pdo_oci'
+  php_ext_pdo_odbc     : ';extension=pdo_odbc'
+  php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
+  php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
+  php_ext_pgsql        : ';extension=pgsql'
+  php_ext_shmop        : ';extension=shmop'

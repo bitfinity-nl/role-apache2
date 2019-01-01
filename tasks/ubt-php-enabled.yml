@@ -1,0 +1,37 @@
+---
+  # Title: app-apache2
+  #
+  # Author: Luc Rutten
+  # File: tasks/ubt-php-enabled.yml  
+  #
+  # Description: 
+  #   Enable PHP for Apache2
+
+  - name: "Install packages"
+    apt:
+      name: "{{ packages }}"
+      state: "present"
+    vars:
+      packages:
+      - apache2
+      - php
+      - libapache2-mod-php
+      - php-cgi
+      - php-common 
+      - php-pear 
+      - php-mbstring
+      - php-mysql
+
+  - name: "Transfer template to {{ ansible_hostname }}"
+    template:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      force: yes
+    with_items:
+      - { src: 'php.ini.j2', dest: '/etc/php/7.2/apache2/php.ini' }
+
+  - name: "Restart apache2"
+    service:
+      name: apache2
+      state: restarted
+
