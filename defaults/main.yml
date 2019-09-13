@@ -1,127 +1,132 @@
 ---
-  # Title: app-apache2
-  #
-  # Author: Luc Rutten
-  # File: defaults/main.yml  
-  #
-  # Description: 
-  #   Enable SSL for Apache
-  #
-  #  Note:
-  #    - SSL certificates should already be available on the server
-  #      or use the app-cert-selfsigned to generate one.
-  #
-
-  # -- Apache: sites-available/default-ssl.conf --
-  #
-  # Variable(s)
-  #   ap_serveradmin             : 'support@yourdomain.com'                                      # Set mail address of the server admin.
-  #   ap_servername              : 'yourdomain.com'                                              # Set domain name.
-  #   ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'                       # Set serveralias.
-  #   ap_documentroot            : '/var/www/html'                                               # Set path to documentroot.
-  #   ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem'      # Set path to certkey.pem.
-  #   ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'   # Set path to privkey.pem.
-  #   ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem'     # Set path to chain.pem.
-  #
-  ap_serveradmin             : 'support@yourdomain.com'
-  ap_servername              : 'yourdomain.com'
-  ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'
-  ap_documentroot            : '/var/www/html'
-  ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ ap_servername }}/cert.pem' 
-  ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ ap_servername }}/privkey.pem'
-  ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ ap_servername }}/chain.pem'
+# Title: aprolep-apache2
+#
+# Author: Luc Rutten
+# File: defaults/main.yml  
+#
+# Description: 
+#   Enable SSL for Apache
+#
+#  Note:
+#    - SSL certificates should already be available on the server
+#      or use the app-cert-selfsigned to generate one.
+#
 
 
-  # -- Apache2: security.conf.j2 --
-  #
-  # See for full details look at: templates/apache2/security.conf
-  #
-  # Variable(s):
-  #   ap_ServerTokens    : 'OS'   # Set to one of:  Full | OS | Minimal | Minor | Major | Prod
-  #   ap_ServerSignature : 'On'   # Set to one of:  On | Off | EMail
-  #   ap_TraceEnable     : 'Off'  # Set to one of:  On | Off | extended
-  #
-  ap_ServerTokens    : 'Prod'
-  ap_ServerSignature : 'off'
-  ap_TraceEnable     : 'off'
-
-  # -- Apache2: mods_evasive --
-  #
-  # Variable(s):
-  #   ev_state             : 'enabeld' or 'disabled'   # Whether mods_evasive is enabled or disabled.
-  #   ev_DOSHashTableSize  : '3097'
-  #   ev_DOSPageCount      : '2'
-  #   ev_DOSSiteCount      : '50'
-  #   ev_DOSPageInterval   : '1'
-  #   ev_DOSSiteInterval   : '1'
-  #   ev_DOSBlockingPeriod : '10'
-  #   ev_DOSEmailNotify    : 'you@yourdomain.com'
-  #
-  ev_state             : 'enabled'
-  ev_DOSHashTableSize  : '3097'
-  ev_DOSPageCount      : '20'
-  ev_DOSSiteCount      : '200'
-  ev_DOSPageInterval   : '1'
-  ev_DOSSiteInterval   : '5'
-  ev_DOSBlockingPeriod : '15'
-  ev_DOSEmailNotify    : 'you@yourdomain.com'
+# -- Apache: sites-available/default-ssl.conf --
+#
+# Variable(s)
+#   ap_serveradmin             : 'support@yourdomain.com'                                      # Set mail address of the server admin.
+#   ap_servername              : 'yourdomain.com'                                              # Set domain name.
+#   ap_serveralias             : '{{ ansible_hostname }}.yourdomain.com'                       # Set serveralias.
+#   ap_documentroot            : '/var/www/html'                                               # Set path to documentroot.
+#   ap_sslcertificatefile      : '/etc/letsencrypt/live/{{ apache_servername }}/cert.pem'      # Set path to certkey.pem.
+#   ap_sslcertificatekeyfile   : '/etc/letsencrypt/live/{{ apache_servername }}/privkey.pem'   # Set path to privkey.pem.
+#   ap_sslcertificatechainfile : '/etc/letsencrypt/live/{{ apache_servername }}/chain.pem'     # Set path to chain.pem.
+#
+# Comment:
+#   Override variables here, in your playbook or in group_vars.
+#
+ap_serveradmin             : '{{ def_ap_serveradmin }}'
+ap_servername              : '{{ def_ap_servername }}'
+ap_serveralias             : '{{ def_ap_serveralias }}'
+ap_documentroot            : '{{ def_ap_documentroot }}'
+ap_sslcertificatefile      : '{{ def_ap_sslcertificatefile }}' 
+ap_sslcertificatekeyfile   : '{{ def_ap_sslcertificatekeyfile }}'
+ap_sslcertificatechainfile : '{{ def_ap_sslcertificatechainfile}}'
 
 
-  # -- PHP: php.ini --
-  # 
-  # Variable(s):
-  #   php_state            : 'disabled' or 'enabled'      # Wheter php will be enabled or disabled
-  #   php_ext_bz           : ';extension=bz2'
-  #   php_ext_curl         : ';extension=curl'
-  #   php_ext_fileinfo     : ';extension=fileinfo'
-  #   php_ext_gd2          : ';extension=gd2'
-  #   php_ext_gettext      : ';extension=gettext'
-  #   php_ext_gmp          : ';extension=gmp'
-  #   php_ext_intl         : ';extension=intl'
-  #   php_ext_imap         : ';extension=imap'
-  #   php_ext_interbase    : ';extension=interbase'
-  #   php_ext_ldap         : ';extension=ldap'
-  #   php_ext_ldap         : ';extension=mbstring'
-  #   php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
-  #   php_ext_mysqli       : ';extension=mysqli'
-  #   php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
-  #   php_ext_odbc         : ';extension=odbc'
-  #   php_ext_openssl      : ';extension=openssl'
-  #   php_ext_pdo_firebird : ';extension=pdo_firebird'
-  #   php_ext_pdo_mysql    : ';extension=pdo_mysql'
-  #   php_ext_pdo_oci      : ';extension=pdo_oci'
-  #   php_ext_pdo_odbc     : ';extension=pdo_odbc'
-  #   php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
-  #   php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
-  #   php_ext_pgsql        : ';extension=pgsql'
-  #   php_ext_shmop        : ';extension=shmop'
-  #
-  # Comment:
-  #   - PHP is disabled by default.
-  #   - Remove ; to enable the extension
-  #
-  php_state            : 'disabled'
-  php_ext_bz           : ';extension=bz2'
-  php_ext_curl         : ';extension=curl'
-  php_ext_fileinfo     : ';extension=fileinfo'
-  php_ext_gd2          : ';extension=gd2'
-  php_ext_gettext      : ';extension=gettext'
-  php_ext_gmp          : ';extension=gmp'
-  php_ext_intl         : ';extension=intl'
-  php_ext_imap         : ';extension=imap'
-  php_ext_interbase    : ';extension=interbase'
-  php_ext_ldap         : ';extension=ldap'
-  php_ext_ldap         : ';extension=mbstring'
-  php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
-  php_ext_mysqli       : ';extension=mysqli'
-  php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
-  php_ext_odbc         : ';extension=odbc'
-  php_ext_openssl      : ';extension=openssl'
-  php_ext_pdo_firebird : ';extension=pdo_firebird'
-  php_ext_pdo_mysql    : ';extension=pdo_mysql'
-  php_ext_pdo_oci      : ';extension=pdo_oci'
-  php_ext_pdo_odbc     : ';extension=pdo_odbc'
-  php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
-  php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
-  php_ext_pgsql        : ';extension=pgsql'
-  php_ext_shmop        : ';extension=shmop'
+# -- Apache2: security.conf.j2 --
+#
+# See for full details look at: templates/apache2/security.conf
+#
+# Variable(s):
+#   ap_ServerTokens    : 'OS'   # Set to one of:  Full | OS | Minimal | Minor | Major | Prod
+#   ap_ServerSignature : 'On'   # Set to one of:  On | Off | EMail
+#   ap_TraceEnable     : 'Off'  # Set to one of:  On | Off | extended
+#
+ap_ServerTokens    : 'Prod'
+ap_ServerSignature : 'off'
+ap_TraceEnable     : 'off'
+
+
+# -- Apache2: mods_evasive --
+#
+# Variable(s):
+#   ev_state             : 'enabeld' or 'disabled'   # Whether mods_evasive is enabled or disabled.
+#   ev_DOSHashTableSize  : '3097'
+#   ev_DOSPageCount      : '2'
+#   ev_DOSSiteCount      : '50'
+#   ev_DOSPageInterval   : '1'
+#   ev_DOSSiteInterval   : '1'
+#   ev_DOSBlockingPeriod : '10'
+#   ev_DOSEmailNotify    : 'you@yourdomain.com'
+#
+ev_state             : 'enabled'
+ev_DOSHashTableSize  : '3097'
+ev_DOSPageCount      : '20'
+ev_DOSSiteCount      : '200'
+ev_DOSPageInterval   : '1'
+ev_DOSSiteInterval   : '5'
+ev_DOSBlockingPeriod : '15'
+ev_DOSEmailNotify    : 'you@yourdomain.com'
+
+
+# -- PHP: php.ini --
+# 
+# Variable(s):
+#   php_state            : 'disabled' or 'enabled'      # Wheter php will be enabled or disabled
+#   php_ext_bz           : ';extension=bz2'
+#   php_ext_curl         : ';extension=curl'
+#   php_ext_fileinfo     : ';extension=fileinfo'
+#   php_ext_gd2          : ';extension=gd2'
+#   php_ext_gettext      : ';extension=gettext'
+#   php_ext_gmp          : ';extension=gmp'
+#   php_ext_intl         : ';extension=intl'
+#   php_ext_imap         : ';extension=imap'
+#   php_ext_interbase    : ';extension=interbase'
+#   php_ext_ldap         : ';extension=ldap'
+#   php_ext_ldap         : ';extension=mbstring'
+#   php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
+#   php_ext_mysqli       : ';extension=mysqli'
+#   php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
+#   php_ext_odbc         : ';extension=odbc'
+#   php_ext_openssl      : ';extension=openssl'
+#   php_ext_pdo_firebird : ';extension=pdo_firebird'
+#   php_ext_pdo_mysql    : ';extension=pdo_mysql'
+#   php_ext_pdo_oci      : ';extension=pdo_oci'
+#   php_ext_pdo_odbc     : ';extension=pdo_odbc'
+#   php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
+#   php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
+#   php_ext_pgsql        : ';extension=pgsql'
+#   php_ext_shmop        : ';extension=shmop'
+#
+# Comment:
+#   - PHP is disabled by default.
+#   - Remove ; to enable the extension
+#
+php_state            : 'disabled'
+php_ext_bz           : ';extension=bz2'
+php_ext_curl         : ';extension=curl'
+php_ext_fileinfo     : ';extension=fileinfo'
+php_ext_gd2          : ';extension=gd2'
+php_ext_gettext      : ';extension=gettext'
+php_ext_gmp          : ';extension=gmp'
+php_ext_intl         : ';extension=intl'
+php_ext_imap         : ';extension=imap'
+php_ext_interbase    : ';extension=interbase'
+php_ext_ldap         : ';extension=ldap'
+php_ext_ldap         : ';extension=mbstring'
+php_ext_exif         : ';extension=exif'            # ; Must be after mbstring as it depends on it
+php_ext_mysqli       : ';extension=mysqli'
+php_ext_oci8_12c     : ';extension=oci8_12c'        # ; Use with Oracle Database 12c Instant Client
+php_ext_odbc         : ';extension=odbc'
+php_ext_openssl      : ';extension=openssl'
+php_ext_pdo_firebird : ';extension=pdo_firebird'
+php_ext_pdo_mysql    : ';extension=pdo_mysql'
+php_ext_pdo_oci      : ';extension=pdo_oci'
+php_ext_pdo_odbc     : ';extension=pdo_odbc'
+php_ext_pdo_pgsql    : ';extension=pdo_pgsql'
+php_ext_pdo_sqlite   : ';extension=pdo_sqlite'
+php_ext_pgsql        : ';extension=pgsql'
+php_ext_shmop        : ';extension=shmop'

@@ -1,8 +1,19 @@
 ---
-  # handlers file for app-apache2
-  
-  - name: "restart_apache2"
-    systemd:
-      name: apache2
-      state: restarted
-      enabled: yes
+# Title: aprolep-apache2
+#
+# Author: Luc Rutten
+# File: defaults/main.yml  
+#
+# Description: 
+#   Enable SSL for Apache
+#
+#  Note:
+#    - SSL certificates should already be available on the server
+#      or use the app-cert-selfsigned to generate one.
+#
+
+- name: "restart_apache2"
+  systemd:
+    name: apache2
+    state: restarted
+    enabled: yes

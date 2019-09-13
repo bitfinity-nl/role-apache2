@@ -1,42 +1,42 @@
 ---
-  # Title: srv-apache2
-  #
-  # Author: Luc Rutten
-  # File: tasks/evasive.yml
-  #
-  # Description:
-  #   Apache2 webserver - (D)DOS Protection
-  #
-  # Sources:
-  #   - https://www.youtube.com/watch?v=XoNbgqgP-dc
+# Title: role-apache2
+#
+# Author: Luc Rutten
+# File: tasks/evasive.yml
+#
+# Description:
+#   Apache2 webserver - (D)DOS Protection
+#
+# Sources:
+#   - https://www.youtube.com/watch?v=XoNbgqgP-dc
 
-  - name: "Install packages"
-    apt:
-      name: "{{ packages }}"
-      state: present
-    vars:
-      packages:
-      - libapache2-mod-evasive
+- name: "Install packages"
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+    - libapache2-mod-evasive
 
-  - name: "Create evasive logdirectory"
-    file:
-      path: "/var/log/mod_evasive/"
-      state: directory
-      owner: www-data
-      group: www-data
+- name: "Create evasive logdirectory"
+  file:
+    path: "/var/log/mod_evasive/"
+    state: directory
+    owner: www-data
+    group: www-data
 
-  - name: "Transfer templates"
-    template:
-      src: "{{ item.src }}"
-      dest: "{{ item.dest }}"
-    with_items:
-      - { src: 'evasive.conf.j2', dest: '/etc/apache2/mods-available/evasive.conf' }
-    notify:
-      - restart_apache2
+- name: "Transfer templates"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'evasive.conf.j2', dest: '/etc/apache2/mods-available/evasive.conf' }
+  notify:
+    - restart_apache2
 
-  - name: "Enable module evasive"
-    apache2_module:
-      state: present
-      name: evasive
-    notify:
-      - restart_apache2
+- name: "Enable module evasive"
+  apache2_module:
+    state: present
+    name: evasive
+  notify:
+    - restart_apache2
