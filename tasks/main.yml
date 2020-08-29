@@ -26,7 +26,7 @@
 - name: "Install Apache2 on Ubuntu 20.04lts amd64 when state is enabled"
   import_tasks: ubt-1804-amd64-enabled.yml
   when:
-    - ansible_distribution_version == "18.04"
+    - ansible_distribution_version == "20.04"
     - ansible_architecture == "x86_64"
     
 - name: "Install evasive for DDOS protection."
