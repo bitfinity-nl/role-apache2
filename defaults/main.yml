@@ -69,7 +69,7 @@ ev_DOSSiteCount      : '200'
 ev_DOSPageInterval   : '1'
 ev_DOSSiteInterval   : '5'
 ev_DOSBlockingPeriod : '15'
-ev_DOSEmailNotify    : 'you@yourdomain.com'
+ev_DOSEmailNotify    : '{{ def_organizational_email }}'
 
 
 # -- PHP: php.ini --
