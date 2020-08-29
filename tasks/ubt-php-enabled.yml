@@ -13,7 +13,6 @@
     state: "present"
   vars:
     packages:
-    - apache2
     - php
     - libapache2-mod-php
     - php-cgi
