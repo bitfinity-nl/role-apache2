@@ -27,8 +27,8 @@
 # Comment:
 #   Override variables here, in your playbook or in group_vars.
 #
-ap_serveradmin             : '{{ def_ap_serveradmin }}'
-ap_servername              : '{{ def_ap_servername }}'
+ap_serveradmin             : '{{ def_organizational_email }}'
+ap_servername              : '{{ ansible_hostname }}.{{ def_organizational_domain }}'
 ap_serveralias             : '{{ def_ap_serveralias }}'
 ap_documentroot            : '{{ def_ap_documentroot }}'
 ap_sslcertificatefile      : '{{ def_ap_sslcertificatefile }}' 
