@@ -24,7 +24,7 @@
 #     - cert_check_result.exists == "true"
 
 - name: "Install Apache2 on Ubuntu 20.04lts amd64 when state is enabled"
-  import_tasks: ubt-1804-amd64-enabled.yml
+  import_tasks: ubt-2004-amd64-enabled.yml
   when:
     - ansible_distribution_version == "20.04"
     - ansible_architecture == "x86_64"
