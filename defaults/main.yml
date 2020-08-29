@@ -31,9 +31,9 @@ ap_serveradmin             : '{{ def_organizational_email }}'
 ap_servername              : '{{ ansible_hostname }}.{{ def_organizational_domain }}'
 ap_serveralias             : '{{ ap_servername }}'
 ap_documentroot            : '/var/www/html'
-ap_sslcertificatefile      : '{{ def_ap_sslcertificatefile }}' 
-ap_sslcertificatekeyfile   : '{{ def_ap_sslcertificatekeyfile }}'
-ap_sslcertificatechainfile : '{{ def_ap_sslcertificatechainfile}}'
+ap_sslcertificatefile      : '{{ def_cert_out }}' 
+ap_sslcertificatekeyfile   : '{{ def_cert_keyout }}'
+ap_sslcertificatechainfile : '{{ def_cert_chain}}'
 
 
 # -- Apache2: security.conf.j2 --
